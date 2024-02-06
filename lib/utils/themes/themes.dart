@@ -9,17 +9,17 @@ class KAppTheme{
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    fontFamily: GoogleFonts.montserrat.toString(),
     scaffoldBackgroundColor: Colors.white,
     primaryColor: Colors.blue,
+    fontFamily: GoogleFonts.montserrat().fontFamily.toString(),
     textTheme: KTextTheme.lightTextTheme,
     inputDecorationTheme: TTextFormFieldTheme.lightInputDecorationTheme
   );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: Color.fromRGBO(11, 12, 30, 1),
-    fontFamily: GoogleFonts.montserrat().toString(),
+    scaffoldBackgroundColor: const Color.fromRGBO(11, 12, 30, 1),
+    fontFamily: GoogleFonts.montserrat().fontFamily.toString(),
     primaryColor: Colors.blue,
     textTheme: KTextTheme.darkTextTheme,
     inputDecorationTheme: TTextFormFieldTheme.darkInputDecorationTheme
