@@ -1,10 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/utils/constants.dart';
 import 'package:weather_app/utils/themes/text_theme.dart';
 import 'package:weather_app/utils/themes/themes.dart';
 import 'package:weather_app/weather_forecast/bloc/weather_bloc.dart';
+import 'package:weather_app/weather_forecast/presentations/widgets/quick_info.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -93,24 +95,60 @@ class HomePage extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 20,),
-                        Row(children: [
-                          Container(
-                            height: 90,
-                            width: 90,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12)
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                              Image.asset('assets/images/8167912.webp', height: 40,),
-                              Text('Wind Speed', style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),),
-                              Text('${(state.weather.windSpeed!*3.6).roundToDouble()}km/h', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),)
-                            ],),
-                          )
-                        ],)
+                                QuickInfoWidget(
+                                    image: 'assets/images/8167912.webp',
+                                    text: 'Wind Speed',
+                                    value:
+                                        '${(state.weather.windSpeed! * 3.6).roundToDouble()}km/h'),
+                                QuickInfoWidget(
+                                    image:
+                                        'assets/images/water-humidity-7847139-6293694.webp',
+                                    text: 'Humidity',
+                                    value:
+                                        '${state.weather.humidity!.toInt()}%'),
+                                QuickInfoWidget(
+                                    image: 'assets/images/8167912.webp',
+                                    text: 'Pressure',
+                                    value:
+                                        '${state.weather.pressure!.toInt()}hPa'),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                QuickInfoWidget(
+                                    image: 'assets/images/8167912.webp',
+                                    text: 'Sunrise',
+                                    value: DateFormat()
+                                        .add_jm()
+                                        .format(state.weather.sunrise!)),
+                                QuickInfoWidget(
+                                    image:
+                                        'assets/images/water-humidity-7847139-6293694.webp',
+                                    text: 'Sunset',
+                                    value: DateFormat()
+                                        .add_jm()
+                                        .format(state.weather.sunset!)),
+                                QuickInfoWidget(
+                                    image: 'assets/images/8167912.webp',
+                                    text: 'Pressure',
+                                    value:
+                                        '${state.weather.pressure!.toInt()}hPa'),
+                              ],
+                            )
+                          ],
+                        )
                       ],
                     )
                   ],
