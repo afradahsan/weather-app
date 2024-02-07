@@ -4,12 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/utils/constants.dart';
 import 'package:weather_app/utils/themes/text_theme.dart';
-import 'package:weather_app/utils/themes/themes.dart';
 import 'package:weather_app/weather_forecast/bloc/weather_bloc.dart';
 import 'package:weather_app/weather_forecast/presentations/widgets/quick_info.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -45,27 +50,28 @@ class HomePage extends StatelessWidget {
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(-0.5, -0.8),
+                      alignment: const AlignmentDirectional(-0.5, -0.8),
                       child: Container(
                         height: 120,
                         width: 120,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.orange, shape: BoxShape.circle),
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.5, -0.8),
+                      alignment: const AlignmentDirectional(0.5, -0.8),
                       child: Container(
                         height: 120,
                         width: 120,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.blue, shape: BoxShape.circle),
                       ),
                     ),
                     BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 70, sigmaY: 70),
                       child: Container(
-                        decoration: BoxDecoration(color: Colors.transparent),
+                        decoration:
+                            const BoxDecoration(color: Colors.transparent),
                       ),
                     ),
                     Column(
@@ -95,7 +101,7 @@ class HomePage extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Column(
@@ -121,7 +127,7 @@ class HomePage extends StatelessWidget {
                                         '${state.weather.pressure!.toInt()}hPa'),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -156,8 +162,10 @@ class HomePage extends StatelessWidget {
               )),
             );
           } else {
-            return const CircularProgressIndicator(
-              color: Colors.brown,
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.brown,
+              ),
             );
           }
         },

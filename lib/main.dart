@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/utils/themes/themes.dart';
 import 'package:weather_app/weather_forecast/bloc/weather_bloc.dart';
-import 'package:weather_app/weather_forecast/presentations/screens/homepage.dart';
+import 'package:weather_app/weather_forecast/presentations/screens/navpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,10 +27,10 @@ class MyApp extends StatelessWidget {
                 return BlocProvider<WeatherBloc>(
                   create: (context) => WeatherBloc()
                     ..add(FetchWeather(snapshot.data as Position)),
-                  child: const HomePage(),
+                  child: const NavBarPage(),
                 );
               } else {
-                return CircularProgressIndicator(
+                return const CircularProgressIndicator(
                   color: Colors.amber,
                 );
               }
@@ -48,7 +48,8 @@ class MyApp extends StatelessWidget {
       // accessing the position and request users of the
       // App to enable the location services.
       print('not enabled');
-      Geolocator.openLocationSettings();
+      await Geolocator.openLocationSettings();
+      _determinePosition();
       return Future.error('Location services are disabled.');
     }
 

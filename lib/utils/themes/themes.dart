@@ -18,7 +18,7 @@ class KAppTheme{
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: const Color.fromRGBO(11, 12, 30, 1),
+    scaffoldBackgroundColor: Color.fromRGBO(11, 12, 30, 1),
     fontFamily: GoogleFonts.montserrat().fontFamily.toString(),
     primaryColor: Colors.blue,
     textTheme: KTextTheme.darkTextTheme,
