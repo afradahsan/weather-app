@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/utils/constants.dart';
-import 'package:weather_app/utils/themes/text_theme.dart';
-import 'package:weather_app/weather_forecast/bloc/weather_bloc.dart';
-import 'package:weather_app/weather_forecast/presentations/widgets/quick_info.dart';
+import 'package:weather_app/weather_forecast/bussiness_logic/bloc/bloc/weather_bloc.dart';
+import 'package:weather_app/weather_forecast/presentations/screens/homepage/widgets/quick_info.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,7 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,21 +24,14 @@ class _HomePageState extends State<HomePage> {
             debugPrint(state.weather.weatherDescription);
             return Scaffold(
               appBar: AppBar(
-                primary: false,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                title: Row(
-                  children: [
-                    const Icon(
-                      Icons.location_pin,
-                      size: 14,
-                    ),
+                centerTitle: true,
+                title:
                     Text('${state.weather.areaName}, ${state.weather.country}'),
-                  ],
-                ),
                 actions: const [
                   Padding(
-                    padding: EdgeInsets.only(right: 8.0),
+                    padding: EdgeInsets.only(right: 12.0),
                     child: Icon(Icons.dark_mode),
                   )
                 ],
@@ -76,25 +68,41 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Column(
                       children: [
-                        Text(
-                          'Today\'s Report!',
-                          style: KTextTheme.darkTextTheme.headlineMedium,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        // Text(
+                        //   'Today\'s Report!',
+                        //   style: KTextTheme.darkTextTheme.headlineMedium,
+                        // ),
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
                         Center(
                             child: Image.asset(
                           'assets/images/sun_thunder.png',
-                          height: 120,
+                          height: 140,
                         )),
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          '${state.weather.temperature!.celsius!.round()}°C',
-                          style: const TextStyle(
-                              fontSize: 50, fontWeight: FontWeight.bold),
+                        RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                              text:
+                                  '${state.weather.temperature!.celsius!.round()}',
+                              style: TextStyle(
+                                  fontFamily: GoogleFonts.poppins().fontFamily,
+                                  fontSize: 80,
+                                  fontWeight: FontWeight.bold),),
+                                TextSpan(
+                                  text: '°C',
+                                  style: TextStyle(
+                                      fontFamily:
+                                          GoogleFonts.sortsMillGoudy().fontFamily,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      fontFeatures: [FontFeature.superscripts()]),
+                                )
+                              ]),
                         ),
                         Text(
                           state.weather.weatherDescription!.capitalize(),

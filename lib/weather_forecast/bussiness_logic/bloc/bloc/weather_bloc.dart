@@ -26,3 +26,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     });
   }
 }
+
+// class WeatherCityBloc extends Bloc<WeatherEvent, WeatherState>{
+//   WeatherCityBloc() : super(WeatherInitial()){
+//     on
+//   }
+// }

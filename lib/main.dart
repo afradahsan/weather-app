@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/utils/themes/themes.dart';
-import 'package:weather_app/weather_forecast/bloc/weather_bloc.dart';
-import 'package:weather_app/weather_forecast/presentations/screens/navpage.dart';
+import 'package:weather_app/weather_forecast/bussiness_logic/bloc/bloc/weather_bloc.dart';
+import 'package:weather_app/weather_forecast/bussiness_logic/bloc/search_bloc/search_bloc.dart';
+import 'package:weather_app/weather_forecast/presentations/screens/homepage/widgets/navpage.dart';
+import 'package:weather_app/weather_forecast/presentations/screens/splashscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,15 +26,20 @@ class MyApp extends StatelessWidget {
             future: _determinePosition(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return BlocProvider<WeatherBloc>(
-                  create: (context) => WeatherBloc()
-                    ..add(FetchWeather(snapshot.data as Position)),
+                return MultiBlocProvider(
+                  providers: [
+                    BlocProvider<WeatherBloc>(
+                      create: (context) => WeatherBloc()
+                        ..add(FetchWeather(snapshot.data as Position)),
+                    ),
+                    BlocProvider<SearchBloc>(
+                      create: (context) => SearchBloc()
+                    ),
+                  ],
                   child: const NavBarPage(),
                 );
               } else {
-                return const CircularProgressIndicator(
-                  color: Colors.amber,
-                );
+                return const SplashScreen();
               }
             }));
   }
@@ -43,13 +50,13 @@ class MyApp extends StatelessWidget {
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    await Geolocator.requestPermission();
     if (!serviceEnabled) {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
       print('not enabled');
-      await Geolocator.openLocationSettings();
-      _determinePosition();
+      _enableLocation();
       return Future.error('Location services are disabled.');
     }
 
@@ -77,5 +84,10 @@ class MyApp extends StatelessWidget {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition();
+  }
+
+  _enableLocation() async {
+    await Geolocator.openLocationSettings();
+    await Geolocator.getCurrentPosition();
   }
 }

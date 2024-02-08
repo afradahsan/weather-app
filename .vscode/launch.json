@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "name": "Flutter (lib\\weather_forecast\\presentations\\screens\\searchpage.dart)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib\\weather_forecast\\presentations\\screens\\searchpage.dart"
+    }
+  ]
+}

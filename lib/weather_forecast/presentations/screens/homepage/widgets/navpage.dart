@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:weather_app/weather_forecast/presentations/screens/homepage.dart';
+import 'package:weather_app/weather_forecast/presentations/screens/homepage/homepage.dart';
 import 'package:weather_app/weather_forecast/presentations/screens/profilepage.dart';
 import 'package:weather_app/weather_forecast/presentations/screens/searchpage.dart';
 
